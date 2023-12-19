@@ -1,0 +1,21 @@
+namespace: gitops
+istio:
+  enabled: false
+pipeline:
+  enabled: true
+  applications:
+    enabled: false
+    dockerconfigjson: changeme
+bluegreen:
+  enabled: false
+  valuesyaml: values/values.yaml
+github:
+  enabled: true
+  token: changeme
+  user: changeme
+  mail: changeme
+  repository: changeme
+monitoring:
+  enabled: true
+argoRollouts:
+  enabled: false

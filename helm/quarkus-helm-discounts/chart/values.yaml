@@ -1,0 +1,8 @@
+nameOverride: discounts
+
+mode: none
+
+quarkus-base:
+  nameOverride: discounts
+  image:
+    repository: quay.io/dseveria/discounts

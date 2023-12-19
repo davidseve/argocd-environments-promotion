@@ -1,0 +1,8 @@
+nameOverride: products
+
+mode: none
+
+quarkus-base:
+  nameOverride: products
+  image:
+    repository: quay.io/dseveria/products

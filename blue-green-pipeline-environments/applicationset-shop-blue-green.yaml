@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: user1-shop
+  namespace: openshift-gitops
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/davidseve/cloud-native-deployment-strategies.git
+      revision: release
+      directories:
+      - path: helm/quarkus-helm-umbrella/chart/values/products/envs/*
+  template:
+    metadata:
+      name:  '{{path.basenameNormalized}}-shop-user1'
+      namespace: openshift-gitops
+    spec:
+      destination:
+        name: ''
+        namespace: 'user1-{{path.basenameNormalized}}'
+        server: 'https://kubernetes.default.svc'
+      source:
+        path: helm/quarkus-helm-umbrella/chart
+        repoURL:  https://github.com/davidseve/cloud-native-deployment-strategies.git
+        targetRevision: release
+        helm:
+          valueFiles:
+            - values/products/envs/{{path.basename}}/image-tag-values.yaml
+            - values/products/envs/{{path.basename}}/non-static-values.yaml
+            - values/discounts/envs/{{path.basename}}/image-tag-values.yaml
+            - values/discounts/envs/{{path.basename}}/non-static-values.yaml
+      project: 'user1'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true

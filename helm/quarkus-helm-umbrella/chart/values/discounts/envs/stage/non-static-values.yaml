@@ -1,0 +1,3 @@
+discounts:
+  quarkus-base:
+    replicaCount: 1

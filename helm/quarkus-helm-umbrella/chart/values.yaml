@@ -1,0 +1,51 @@
+discounts:
+  nameOverride: discounts-umbrella
+  fullnameOverride: "discounts"
+  mode: online
+  quarkus-base:
+    replicaCount: 2
+    nameOverride: discounts-umbrella
+    fullnameOverride: "discounts"
+    log:
+      level: DEBUG
+    version: blue
+    image:
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: v1.0.1
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8080"
+      prometheus.io/path: "/q/metrics"
+
+    
+products:
+  nameOverride: products-umbrella
+  fullnameOverride: "products"
+  mode: online
+  quarkus-base:
+    replicaCount: 2
+    nameOverride: products-umbrella
+    fullnameOverride: "products"
+    log:
+      level: DEBUG
+    version: blue
+    image:
+      tag: v1.0.1
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8080"
+      prometheus.io/path: "/q/metrics"
+
+nameOverride: "shop-umbrella" 
+
+fullnameOverride: ""
+
+
+global:
+  istio:
+    enabled: false
+    rollouts:
+      enabled: false
+  prometheusAddress: https://prometheus-k8s.openshift-monitoring.svc.cluster.local
+
+
