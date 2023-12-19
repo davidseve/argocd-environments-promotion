@@ -2,7 +2,7 @@ namespace: gitops
 istio:
   enabled: false
 pipeline:
-  enabled: true
+  enabled: false
   applications:
     enabled: false
     dockerconfigjson: changeme
@@ -10,7 +10,7 @@ bluegreen:
   enabled: false
   valuesyaml: values/values.yaml
 github:
-  enabled: true
+  enabled: false
   token: changeme
   user: changeme
   mail: changeme

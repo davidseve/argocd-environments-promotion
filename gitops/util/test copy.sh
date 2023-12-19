@@ -7,12 +7,12 @@ user=user1
 token=$4
 funcPull()
 {
-    pull_number=$(curl -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer $token"   https://api.github.com/repos/davidseve/cloud-native-deployment-strategies/pulls | jq -r '.[0].number')
+    pull_number=$(curl -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer $token"   https://api.github.com/repos/davidseve/argocd-environments-promotion/pulls | jq -r '.[0].number')
     curl \
     -X PUT \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $token" \
-    https://api.github.com/repos/davidseve/cloud-native-deployment-strategies/pulls/$pull_number/merge \
+    https://api.github.com/repos/davidseve/argocd-environments-promotion/pulls/$pull_number/merge \
     -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
 }
 
@@ -41,8 +41,8 @@ rm -rf /tmp/deployment
 mkdir /tmp/deployment
 cd /tmp/deployment
 
-git clone https://github.com/davidseve/cloud-native-deployment-strategies.git
-cd cloud-native-deployment-strategies
+git clone https://github.com/davidseve/argocd-environments-promotion.git
+cd argocd-environments-promotion
 #To work with a branch that is not main. ./test.sh ghp_JGFDSFIGJSODIJGF no helm_base
 if [ ${2:-no} != "no" ]
 then
@@ -82,14 +82,14 @@ fi
 
 
 
-sed -i 's/change_me/davidseve/g' blue-green-pipeline-environments/applicationset-shop-blue-green.yaml
-sed -i "s/user1/$user/g" blue-green-pipeline-environments/applicationset-shop-blue-green.yaml
+sed -i 's/change_me/davidseve/g' gitops/app-config/applicationset-shop.yaml
+sed -i "s/user1/$user/g" gitops/app-config/applicationset-shop.yaml
 sed -i "s/user1/$user/g" blue-green-pipeline-environments/pipelines/run-products-stage/*
 sed -i "s/user1/$user/g" blue-green-pipeline-environments/pipelines/run-products-prod/*
 
 oc login -u $user -p $5 $6
 
-oc apply -f blue-green-pipeline-environments/applicationset-shop-blue-green.yaml --wait=true
+oc apply -f gitops/app-config/applicationset-shop.yaml --wait=true
 sleep 1m
 export TOKEN=$4
 export GIT_USER=davidseve

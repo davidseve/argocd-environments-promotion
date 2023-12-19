@@ -13,7 +13,7 @@ spec:
   - name: NAMESPACE
     value: "user1-stage"
   - name: REPO_FULL_NAME
-    value: davidseve/cloud-native-deployment-strategies
+    value: davidseve/argocd-environments-promotion
   workspaces:
   - name: app-source
     persistentVolumeClaim:

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-cd /tmp/deployment/cloud-native-deployment-strategies
+cd /tmp/deployment/argocd-environments-promotion
 
 
-oc delete -f blue-green-pipeline-environments/applicationset-shop-blue-green.yaml
+oc delete -f gitops/app-config/applicationset-shop.yaml
 
 if [ ${1:-no} = "no" ]
 then

@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
   - git:
-      repoURL: https://github.com/davidseve/cloud-native-deployment-strategies.git
+      repoURL: https://github.com/davidseve/argocd-environments-promotion.git
       revision: release
       directories:
       - path: helm/quarkus-helm-umbrella/chart/values/products/envs/*
@@ -21,7 +21,7 @@ spec:
         server: 'https://kubernetes.default.svc'
       source:
         path: helm/quarkus-helm-umbrella/chart
-        repoURL:  https://github.com/davidseve/cloud-native-deployment-strategies.git
+        repoURL:  https://github.com/davidseve/argocd-environments-promotion.git
         targetRevision: release
         helm:
           valueFiles:

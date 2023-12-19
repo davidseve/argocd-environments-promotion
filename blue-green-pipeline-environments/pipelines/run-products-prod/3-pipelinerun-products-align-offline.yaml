@@ -15,7 +15,7 @@ spec:
   - name: NAMESPACE
     value: "user1-prod"
   - name: REPO_FULL_NAME
-    value: davidseve/cloud-native-deployment-strategies
+    value: davidseve/argocd-environments-promotion
   - name: ENV
     value: prod
   workspaces:
