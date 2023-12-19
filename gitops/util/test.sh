@@ -58,18 +58,18 @@ then
     oc apply -f gitops/gitops-operator.yaml
     waitoperatorpod gitops
 
-    sed -i "s/changeme_token/$4/g" blue-green-pipeline-environments/application-cluster-config.yaml
-    sed -i 's/changeme_user/davidseve/g' blue-green-pipeline-environments/application-cluster-config.yaml
-    sed -i 's/changeme_mail/davidseve@gmail.com/g' blue-green-pipeline-environments/application-cluster-config.yaml
-    sed -i 's/changeme_repository/davidseve/g' blue-green-pipeline-environments/application-cluster-config.yaml
+    sed -i "s/changeme_token/$4/g" gitops/application-cluster-config.yaml
+    sed -i 's/changeme_user/davidseve/g' gitops/application-cluster-config.yaml
+    sed -i 's/changeme_mail/davidseve@gmail.com/g' gitops/application-cluster-config.yaml
+    sed -i 's/changeme_repository/davidseve/g' gitops/application-cluster-config.yaml
 
     #To work with a branch that is not main. ./test.sh ghp_JGFDSFIGJSODIJGF no helm_base
     if [ ${2:-no} != "no" ]
     then
-        sed -i "s/HEAD/$2/g" blue-green-pipeline-environments/application-cluster-config.yaml
+        sed -i "s/HEAD/$2/g" gitops/application-cluster-config.yaml
     fi
 
-    oc apply -f blue-green-pipeline-environments/application-cluster-config.yaml --wait=true
+    oc apply -f gitops/application-cluster-config.yaml --wait=true
 
     #First time we install operators take logger
     if [ ${1:-no} = "no" ]
@@ -84,9 +84,6 @@ fi
 
 
 sed -i 's/change_me/davidseve/g' gitops/app-config/applicationset-shop.yaml
-sed -i "s/user1/$user/g" gitops/app-config/applicationset-shop.yaml
-sed -i "s/user1/$user/g" blue-green-pipeline-environments/pipelines/run-products-stage/*
-sed -i "s/user1/$user/g" blue-green-pipeline-environments/pipelines/run-products-prod/*
 
 oc login -u $user -p $user $5
 

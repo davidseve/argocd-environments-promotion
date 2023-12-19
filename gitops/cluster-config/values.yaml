@@ -6,9 +6,6 @@ pipeline:
   applications:
     enabled: false
     dockerconfigjson: changeme
-bluegreen:
-  enabled: false
-  valuesyaml: values/values.yaml
 github:
   enabled: false
   token: changeme

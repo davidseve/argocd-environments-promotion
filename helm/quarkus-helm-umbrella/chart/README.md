@@ -3,7 +3,7 @@
 ## Chart Details
 This chart will do the following:
  
-* Deploy two quarkus microservices Product and Discounts for Blue/Green deployment
+* Deploy two quarkus microservices Product and Discounts
  
 ## Installing the Chart
  

@@ -8,7 +8,7 @@ oc delete -f gitops/app-config/applicationset-shop.yaml
 if [ ${1:-no} = "no" ]
 then
 
-    oc delete -f blue-green-pipeline-environments/application-cluster-config.yaml
+    oc delete -f gitops/application-cluster-config.yaml
 
     currentCSV=$(oc get subscription openshift-pipelines-operator-rh -n openshift-operators -o yaml | grep currentCSV | sed 's/  currentCSV: //')
     echo $currentCSV
