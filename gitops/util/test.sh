@@ -4,17 +4,6 @@
 
 #token needs:  Read and Write access to code, commit statuses, and pull requests
 user=user1
-token=$4
-funcPull()
-{
-    pull_number=$(curl -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer $token"   https://api.github.com/repos/davidseve/argocd-environments-promotion/pulls | jq -r '.[0].number')
-    curl \
-    -X PUT \
-    -H "Accept: application/vnd.github+json" \
-    -H "Authorization: Bearer $token" \
-    https://api.github.com/repos/davidseve/argocd-environments-promotion/pulls/$pull_number/merge \
-    -d '{"commit_title":"Expand enum","commit_message":"Add a new value to the merge_method enum"}'
-}
 
 waitpodup(){
   x=1
@@ -79,11 +68,6 @@ then
     fi
 fi
 
-
-
-
 sed -i 's/change_me/davidseve/g' gitops/app-config/applicationset-shop.yaml
-
-
 
 oc apply -f gitops/app-config/applicationset-shop.yaml --wait=true
