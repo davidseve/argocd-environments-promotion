@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: user1-shop
+  name: shop
   namespace: openshift-gitops
 spec:
   generators:
@@ -9,7 +9,7 @@ spec:
       repoURL: https://github.com/davidseve/argocd-environments-promotion.git
       revision: release
       directories:
-      - path: helm/quarkus-helm-umbrella/chart/values/products/envs/*
+      - path: gitops/app-config/values/products/envs/*
   template:
     metadata:
       name:  '{{path.basenameNormalized}}-shop-user1'
@@ -17,7 +17,7 @@ spec:
     spec:
       destination:
         name: ''
-        namespace: 'user1-{{path.basenameNormalized}}'
+        namespace: '{{path.basenameNormalized}}'
         server: 'https://kubernetes.default.svc'
       source:
         path: helm/quarkus-helm-umbrella/chart
@@ -25,10 +25,10 @@ spec:
         targetRevision: release
         helm:
           valueFiles:
-            - values/products/envs/{{path.basename}}/image-tag-values.yaml
-            - values/products/envs/{{path.basename}}/non-static-values.yaml
-            - values/discounts/envs/{{path.basename}}/image-tag-values.yaml
-            - values/discounts/envs/{{path.basename}}/non-static-values.yaml
+            - ../../../gitops/app-config/values/products/envs/{{path.basename}}/image-tag-values.yaml
+            - ../../../gitops/app-config/values/products/envs/{{path.basename}}/non-static-values.yaml
+            - ../../../gitops/app-config/values/discounts/envs/{{path.basename}}/image-tag-values.yaml
+            - ../../../gitops/app-config/values/discounts/envs/{{path.basename}}/non-static-values.yaml
       project: 'user1'
       syncPolicy:
         automated:
