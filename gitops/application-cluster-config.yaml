@@ -27,7 +27,7 @@ spec:
         - name: "users[0]"
           value: user1                                                                                                                                      
         - name: "namespaces[0]"
-          value: UAT
+          value: stage
         - name: "namespaces[1]"
           value: prod
   project: default
