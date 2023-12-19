@@ -2,7 +2,6 @@
 
 #./test.sh si release no github_pat_XXXXXXXXXXXXXXX PASSWORD https://api.cluster-XX.XX.XX.opentlc.com:6443 
 
-./createUsersCRC.sh
 #token needs:  Read and Write access to code, commit statuses, and pull requests
 user=user1
 token=$4
@@ -85,6 +84,6 @@ fi
 
 sed -i 's/change_me/davidseve/g' gitops/app-config/applicationset-shop.yaml
 
-oc login -u $user -p $user $5
+
 
 oc apply -f gitops/app-config/applicationset-shop.yaml --wait=true
