@@ -1,4 +1,0 @@
-products:
-  quarkus-base:
-    image:
-      tag: v1.1.1
