@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: shop
+  namespace: openshift-gitops
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/davidseve/argocd-environments-promotion.git
+      revision: test
+      directories:
+      - path: gitops/app-config/values/products/envs/*
+  template:
+    metadata:
+      name:  '{{path.basenameNormalized}}-shop-user1'
+      namespace: openshift-gitops
+    spec:
+      destination:
+        name: ''
+        namespace: '{{path.basenameNormalized}}'
+        server: 'https://kubernetes.default.svc'
+      source:
+        path: helm/quarkus-helm-umbrella/chart
+        repoURL:  https://github.com/davidseve/argocd-environments-promotion.git
+        targetRevision: test
+        helm:
+          valueFiles:
+            - ../../../gitops/app-config/values/products/envs/{{path.basename}}/image-tag-values.yaml
+            - ../../../gitops/app-config/values/products/envs/{{path.basename}}/non-static-values.yaml
+            - ../../../gitops/app-config/values/discounts/envs/{{path.basename}}/image-tag-values.yaml
+            - ../../../gitops/app-config/values/discounts/envs/{{path.basename}}/non-static-values.yaml
+      project: 'default'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
