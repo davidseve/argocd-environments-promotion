@@ -1,3 +1,0 @@
-products:
-  quarkus-base:
-    replicaCount: 3
